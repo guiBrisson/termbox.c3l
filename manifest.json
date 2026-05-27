@@ -1,0 +1,36 @@
+{
+  "provides": "termbox",
+  "linklib-dir": "linked-libs",
+  "targets": {
+    "freebsd-x64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "linux-aarch64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "linux-riscv32": {
+      "linked-libraries": ["termbox2"]
+    },
+    "linux-riscv64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "linux-x64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "macos-aarch64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "macos-x64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "netbsd-aarch64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "netbsd-x64": {
+      "linked-libraries": ["termbox2"]
+    },
+    "openbsd-x64": {
+      "linked-libraries": ["termbox2"]
+    }
+  }
+}

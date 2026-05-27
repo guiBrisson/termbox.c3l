@@ -1,0 +1,228 @@
+module termbox;
+
+constdef Key : ushort
+{
+    CTRL_TILDE       = 0x00,
+    CTRL_2           = 0x00,
+    CTRL_A           = 0x01,
+    CTRL_B           = 0x02,
+    CTRL_C           = 0x03,
+    CTRL_D           = 0x04,
+    CTRL_E           = 0x05,
+    CTRL_F           = 0x06,
+    CTRL_G           = 0x07,
+    BACKSPACE        = 0x08,
+    CTRL_H           = 0x08,
+    TAB              = 0x09,
+    CTRL_I           = 0x09,
+    CTRL_J           = 0x0a,
+    CTRL_K           = 0x0b,
+    CTRL_L           = 0x0c,
+    ENTER            = 0x0d,
+    CTRL_M           = 0x0d,
+    CTRL_N           = 0x0e,
+    CTRL_O           = 0x0f,
+    CTRL_P           = 0x10,
+    CTRL_Q           = 0x11,
+    CTRL_R           = 0x12,
+    CTRL_S           = 0x13,
+    CTRL_T           = 0x14,
+    CTRL_U           = 0x15,
+    CTRL_V           = 0x16,
+    CTRL_W           = 0x17,
+    CTRL_X           = 0x18,
+    CTRL_Y           = 0x19,
+    CTRL_Z           = 0x1a,
+    ESC              = 0x1b,
+    CTRL_LSQ_BRACKET = 0x1b,
+    CTRL_3           = 0x1b,
+    CTRL_4           = 0x1c,
+    CTRL_BACKSLASH   = 0x1c,
+    CTRL_5           = 0x1d,
+    CTRL_RSQ_BRACKET = 0x1d,
+    CTRL_6           = 0x1e,
+    CTRL_7           = 0x1f,
+    CTRL_SLASH       = 0x1f,
+    CTRL_UNDERSCORE  = 0x1f,
+    SPACE            = 0x20,
+    BACKSPACE2       = 0x7f,
+    CTRL_8           = 0x7f,
+
+    F1               = (0xffff - 0),
+    F2               = (0xffff - 1),
+    F3               = (0xffff - 2),
+    F4               = (0xffff - 3),
+    F5               = (0xffff - 4),
+    F6               = (0xffff - 5),
+    F7               = (0xffff - 6),
+    F8               = (0xffff - 7),
+    F9               = (0xffff - 8),
+    F10              = (0xffff - 9),
+    F11              = (0xffff - 10),
+    F12              = (0xffff - 11),
+    INSERT           = (0xffff - 12),
+    DELETE           = (0xffff - 13),
+    HOME             = (0xffff - 14),
+    END              = (0xffff - 15),
+    PGUP             = (0xffff - 16),
+    PGDN             = (0xffff - 17),
+    ARROW_UP         = (0xffff - 18),
+    ARROW_DOWN       = (0xffff - 19),
+    ARROW_LEFT       = (0xffff - 20),
+    ARROW_RIGHT      = (0xffff - 21),
+    BACK_TAB         = (0xffff - 22),
+    MOUSE_LEFT       = (0xffff - 23),
+    MOUSE_RIGHT      = (0xffff - 24),
+    MOUSE_MIDDLE     = (0xffff - 25),
+    MOUSE_RELEASE    = (0xffff - 26),
+    MOUSE_WHEEL_UP   = (0xffff - 27),
+    MOUSE_WHEEL_DOWN = (0xffff - 28),
+}
+
+constdef Color : ulong
+{
+    DEFAULT     = 0x0000,
+    BLACK       = 0x0001,
+    RED         = 0x0002,
+    GREEN       = 0x0003,
+    YELLOW      = 0x0004,
+    BLUE        = 0x0005,
+    MAGENTA     = 0x0006,
+    CYAN        = 0x0007,
+    WHITE       = 0x0008,
+    BOLD        = 0x0100,
+    UNDERLINE   = 0x0200,
+    REVERSE     = 0x0400,
+    ITALIC      = 0x0800,
+    BLINK       = 0x1000,
+    HI_BLACK    = 0x2000,
+    BRIGHT      = 0x4000,
+    DIM         = 0x8000,
+	STRIKEOUT   = 0x0000000100000000,
+	UNDERLINE_2 = 0x0000000200000000,
+	OVERLINE    = 0x0000000400000000,
+	INVISIBLE   = 0x0000000800000000,
+}
+
+constdef EventType : char
+{
+    KEY     = 1,
+    RESIZE  = 2,
+    MOUSE   = 3,
+}
+
+constdef Mod : char
+{
+    ALT     = 1,
+    CTRL    = 2,
+    SHIFT   = 4,
+    MOTION  = 8,
+}
+
+constdef InputMode : char
+{
+    INPUT_CURRENT     = 0,
+    INPUT_ESC         = 1,
+    INPUT_ALT         = 2,
+    INPUT_MOUSE       = 4,
+}
+
+constdef OutputMode : char
+{
+    OUTPUT_CURRENT     = 0,
+    OUTPUT_NORMAL      = 1,
+    OUTPUT_256         = 2,
+    OUTPUT_216         = 3,
+    OUTPUT_GRAYSCALE   = 4,
+}
+
+constdef Result : int
+{
+    OK                   = 0,
+    ERR                  = -1,
+    ERR_NEED_MORE        = -2,
+    ERR_INIT_ALREADY     = -3,
+    ERR_INIT_OPEN        = -4,
+    ERR_MEM              = -5,
+    ERR_NO_EVENT         = -6,
+    ERR_NO_TERM          = -7,
+    ERR_NOT_INIT         = -8,
+    ERR_OUT_OF_BOUNDS    = -9,
+    ERR_READ             = -10,
+    ERR_RESIZE_IOCTL     = -11,
+    ERR_RESIZE_PIPE      = -12,
+    ERR_RESIZE_SIGACTION = -13,
+    ERR_POLL             = -14,
+    ERR_TCGETATTR        = -15,
+    ERR_TCSETATTR        = -16,
+    ERR_UNSUPPORTED_TERM = -17,
+    ERR_RESIZE_WRITE     = -18,
+    ERR_RESIZE_POLL      = -19,
+    ERR_RESIZE_READ      = -20,
+    ERR_RESIZE_SSCANF    = -21,
+    ERR_CAP_COLLISION    = -22,
+
+	ERR_SELECT           = ERR_POLL,
+	ERR_RESIZE_SELECT    = ERR_RESIZE_POLL,
+}
+
+struct Cell
+{
+    uint ch;
+    Color fg;
+    Color bg;
+}
+
+struct Event {
+    EventType type;
+    Mod mod;
+    Key key;
+    uint ch;
+    int w;
+    int h;
+    int x;
+    int y;
+}
+
+extern fn Result init() @cname("tb_init");
+extern fn Result init_file(ZString path) @cname("tb_init_file");
+extern fn Result init_fd(int ttyfd) @cname("tb_init_fd");
+extern fn Result init_rwfd(int rfd, int wfd) @cname("tb_init_rwfd");
+extern fn Result shutdown() @cname("tb_shutdown");
+
+extern fn int width() @cname("tb_width");
+extern fn int height() @cname("tb_height");
+
+extern fn Result clear() @cname("tb_clear");
+extern fn Result set_clear_attrs(Color fg, Color bg) @cname("tb_set_clear_attrs");
+
+extern fn Result present() @cname("tb_present");
+
+extern fn Result invalidate() @cname("tb_invalidate");
+
+extern fn Result set_cursor(int cx, int cy) @cname("tb_set_cursor");
+extern fn Result hide_cursor() @cname("tb_hide_cursor");
+
+extern fn Result set_cell(int x, int y, uint ch, Color fg, Color bg) @cname("tb_set_cell");
+/* TODO: tb_set_cell_ex */
+extern fn Result extend_cell(int x, int y, uint ch) @cname("tb_extend_cell");
+
+/* TODO: tb_get_cell */
+
+extern fn Result set_input_mode(InputMode mode) @cname("tb_set_input_mode");
+extern fn Result set_output_mode(OutputMode mode) @cname("tb_set_output_mode");
+extern fn Result peek_event(Event* event, int timeout_ms) @cname("tb_peek_event");
+extern fn Result poll_event(Event* event) @cname("tb_poll_event");
+extern fn Result get_fds(int* ttyfd, int* resizefd) @cname("tb_get_fds");
+extern fn Result print(int x, int y, Color fg, Color bg, ZString str) @cname("tb_print");
+extern fn Result printf(int x, int y, Color fg, Color bg, ZString fmt, ...) @cname("tb_printf");
+/* TODO: tb_print_ex and tb_printf_ex */
+/* TODO: tb_send and tb_sendf */
+extern fn Result utf8_char_length(char c) @cname("tb_utf8_char_length");
+/* TODO: tb_utf8_char_to_unicode and tb_utf8_unicode_to_char */
+extern fn Result last_errno() @cname("tb_last_errno");
+extern fn ZString strerror(Result err) @cname("tb_strerror");
+/* TODO: tb_has_truecolor and tb_has_egc */
+extern fn int attr_width() @cname("tb_attr_width");
+extern fn ZString version() @cname("tb_version");
+/* TODO: tb_iswprint and tb_wcwidth */
